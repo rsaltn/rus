@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Сюжет | Преступление и наказание</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    /* глубокий тёмно-коричневый фон, как на всех страницах */
+    background: #1f1a15;
+    color: #e2d9c7; /* тёплый светлый беж для общего текста */
+}
+
+/* Фиксированная шапка в едином стиле */
+header {
+    position: fixed;
+    width: 100%;
+    background: rgba(18, 14, 10, 0.98); /* очень тёмный коричневый */
+    padding: 18px 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+    border-bottom: 1px solid #6e5b4b;
+    text-align: center;
+}
+
+header a {
+    color: #cbb59b; /* приглушённый золотисто-песочный */
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 2px black;
+    transition: 0.25s;
+    display: inline-block;
+}
+
+header a:hover {
+    color: #eedece;
+    border-bottom: 1px solid #b49474;
+    padding-bottom: 3px;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    padding-top: 120px; /* компенсация фиксированной шапки */
+    font-size: 60px;
+    color: #e1cbb3; /* песочный, как на главной */
+    letter-spacing: 4px;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px #2f241b;
+    background-color: #1f1a15; 
+}
+
+.container {
+    width: 85%;
+    max-width: 1300px;
+    margin: 30px auto 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+
+/* Карточка главы — стиль старой бумаги, как у персонажей */
+.chapter-card {
+    display: flex;
+    gap: 35px;
+    background: #efe6d7; /* светлая старая бумага */
+    color: #221c16;
+    padding: 40px 45px 40px 40px;
+    border-left: 6px solid #8b6f50; /* тёплый акцент */
+    border-radius: 0px;
+    box-shadow: 10px 10px 0px #3b2e22; /* винтажная тень */
+    transition: transform 0.25s, box-shadow 0.25s;
+    border: 1px solid #755e48;
+}
+
+.chapter-card:hover {
+    transform: scale(1.01);
+    box-shadow: 12px 12px 0px #2f241b;
+}
+
+/* Изображение для главы */
+.chapter-card img {
+    width: 220px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 0px;
+    background: #b8a68f;
+    box-shadow: 8px 8px 0px #3b2e22;
+    border: 1px solid #755e48;
+    flex-shrink: 0;
+}
+
+.chapter-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chapter-text h2 {
+    margin-bottom: 20px;
+    color: #5a3e2b; /* глубокий кофейный */
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-bottom: 1px dashed #a2866b;
+    padding-bottom: 8px;
+}
+
+.chapter-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #2d241d;
+    text-align: justify;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #9e8d79;
+    font-size: 0.95rem;
+    border-top: 1px solid #3b2e22;
+    width: 80%;
+    margin: 20px auto 0;
+}
+
+/* текстурный оверлей как на других страницах */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><path fill="%233d3229" d="M1 3h1v1H1zM3 1h1v1H3z" opacity="0.15"/></svg>');
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.25;
+}
+
+/* Адаптация для планшетов и мобильных */
+@media (max-width: 900px) {
+    .chapter-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 30px;
+    }
+    .chapter-card img {
+        width: 200px;
+        height: 270px;
+        margin-bottom: 15px;
+    }
+    .chapter-text h2 {
+        text-align: center;
+    }
+    .chapter-text p {
+        text-align: left;
+    }
+    h1 {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+    header a {
+        margin: 0 10px;
+        font-size: 0.95rem;
+    }
+    h1 {
+        font-size: 38px;
+        padding-top: 100px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<a href="index.html">Главная</a>
+<a href="characters.html">Персонажи</a>
+<a href="plot.html">Сюжет</a>
+<a href="quotes.html">Цитаты</a>
+<a href="system.html">Система образов</a>
+</header>
+
+<h1>Сюжет романа</h1>
+
+<div class="container">
+
+<!-- Глава 1 -->
+<div class="chapter-card">
+<img src="https://illustrators.ru/uploads/illustration/image/1807134/main_136F6C42-4F79-41B4-90F2-D96FF500CC0E.jpeg" alt="Петербург">
+<div class="chapter-text">
+<h2>Глава 1</h2>
+<p>
+Действие начинается в Петербурге. Родион Раскольников, бедный студент, прогуливается по шумным улицам и размышляет о своей теории «сильной личности». 
+Мы видим его бедственное положение, моральное смятение и внутренний конфликт. 
+Знакомимся с семьей Раскольникова и узнаём о тяжёлой жизни матери и сестры. 
+Эта глава закладывает основу внутренней борьбы героя и ключевой конфликт сюжета.
+</p>
+</div>
+</div>
+
+<!-- Глава 2 -->
+<div class="chapter-card">
+<img src="https://artnow.ru/img/1568000/1568028.jpg" alt="Соня Мармеладова">
+<div class="chapter-text">
+<h2>Глава 2</h2>
+<p>
+Раскольников посещает старуху-процентщицу и её сестру, обдумывая возможность убийства. 
+Он встречается с Соней Мармеладовой, знакомится с её трагической судьбой. 
+Происходит первое столкновение идей героя с моралью общества. 
+Читатель видит, как Петербург отражает его внутреннее напряжение. 
+Глава создаёт атмосферу напряжённой психологической драмы и предчувствия преступления.
+</p>
+</div>
+</div>
+
+<!-- Глава 3 -->
+<div class="chapter-card">
+<img src="https://s00.yaplakal.com/pics/pics_original/8/8/1/17566188.jpg" alt="Убийство">
+<div class="chapter-text">
+<h2>Глава 3</h2>
+<p>
+Раскольников совершает убийство старухи. Событие происходит ночью в её квартире. 
+Эта глава показывает всю психологическую борьбу героя, его страхи и сомнения. 
+Начинаются последствия: ужас, вина, попытка скрыть следы. 
+Сюжет ускоряется, и читатель видит начало морального падения героя. 
+Эта глава формирует драматическое ядро романа и задаёт основной конфликт.
+</p>
+</div>
+</div>
+
+<!-- Глава 4 -->
+<div class="chapter-card">
+<img src="https://avatars.mds.yandex.net/i?id=1db17992bd2ebea1bc23f98bb9434dec_l-10216894-images-thumbs&n=13" alt="Порфирий Петрович">
+<div class="chapter-text">
+<h2>Глава 4</h2>
+<p>
+Раскольников сталкивается с расследованием, постепенно раскрывается роль Порфирия Петровича. 
+Герой чувствует растущее напряжение и моральное давление. 
+Встречи с Соней усиливают противоречие между его теорией и человеческой совестью. 
+Глава иллюстрирует внутренние терзания и постепенное осознание ошибки. 
+Сюжет развивается через психологическую динамику и моральный конфликт.
+</p>
+</div>
+</div>
+
+<!-- Глава 5 -->
+<div class="chapter-card">
+<img src="https://cdnb.artstation.com/p/assets/images/images/054/770/741/large/vi-khazratova-.jpg?1665340401" alt="Раскаяние">
+<div class="chapter-text">
+<h2>Глава 5</h2>
+<p>
+Раскольников начинает постепенно признаваться себе в своей вине. 
+Его внутренний мир меняется под влиянием Сони и страданий. 
+Город Петербург продолжает быть отражением его душевного состояния. 
+Герой приходит к идее раскаяния и духовного возрождения. 
+Глава завершает психологический цикл романа, подводя к финалу с признанием и ссылкой.
+</p>
+</div>
+</div>
+
+</div>
+
+<footer>
+© Сюжет романа «Преступление и наказание»
+</footer>
+
+</body>
+</html>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Преступление и наказание — цветовая гамма как на фото</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    /* тёмный, глубокий фон, напоминающий старую бумагу/кожу — как на фото */
+    background: #1f1a15;
+    /* цвет текста общий — тёплый светлый беж */
+    color: #e2d9c7;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    background: rgba(18, 14, 10, 0.98); /* очень тёмный коричневый */
+    padding: 18px 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+    border-bottom: 1px solid #6e5b4b;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #cbb59b; /* приглушённый золотисто-песочный */
+    font-weight: bold;
+    transition: 0.25s;
+    letter-spacing: 1.5px;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 2px black;
+}
+
+nav a:hover {
+    color: #eedece; /* светлый почти белый */
+    border-bottom: 1px solid #b49474;
+}
+
+main {
+    padding-top: 130px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 66px;
+    margin-bottom: 10px;
+    color: #e1cbb3; /* благородный песочный, как старый пергамент */
+    letter-spacing: 4px;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px #2f241b;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 21px;
+    margin-bottom: 50px;
+    color: #bbaa92; /* мягкий беж */
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+section {
+    background: #efe6d7; /* светлый, тёплый фон секций (старая бумага) */
+    color: #221c16; /* очень тёмный коричневый для текста */
+    margin: 45px auto;
+    padding: 45px 50px;
+    width: 80%;
+    max-width: 1200px;
+    border-radius: 2px; /* почти без скруглений, как на фото */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+    border-left: 6px solid #8b6f50; /* тёплый акцент */
+}
+
+section h2 {
+    margin-bottom: 25px;
+    color: #5a3e2b; /* глубокий кофейный */
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-bottom: 1px dashed #a2866b;
+    padding-bottom: 8px;
+}
+
+.author-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.author-container img {
+    width: 230px;
+    border-radius: 0px; /* строгие прямоугольные формы */
+    box-shadow: 10px 10px 0px #3b2e22; /* намёк на винтаж */
+    border: 1px solid #755e48;
+    background: #b8a68f;
+}
+
+.author-text {
+    flex: 1;
+    font-size: 18px;
+    line-height: 1.75;
+    color: #2d241d;
+}
+
+.author-text p {
+    margin-bottom: 20px;
+}
+
+.author-text strong {
+    color: #6a3f28;
+    font-weight: 700;
+}
+
+.idea {
+    margin-top: 35px;
+    padding: 25px 30px;
+    background: #dacfbf; /* чуть темнее основного фона, перекликается с фото */
+    border-left: 6px solid #734c2f; /* глубокий терракотово-коричневый */
+    font-style: italic;
+    line-height: 1.7;
+    font-size: 1.2rem;
+    color: #241e17;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+button {
+    margin-top: 30px;
+    padding: 14px 35px;
+    background: #644a36; /* приглушённый умбра */
+    border: 2px solid #ab8d70;
+    color: #f0e0ce;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background: #3f2f21;
+    border-color: #cfa776;
+    color: #ffffff;
+}
+
+/* дополнительные детали для атмосферы */
+.idea::before {
+    content: "❝";
+    font-size: 3rem;
+    color: #6f523b;
+    opacity: 0.4;
+    float: left;
+    margin-right: 15px;
+    line-height: 1;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #9e8d79;
+    font-size: 0.9rem;
+}
+
+/* под стать фото — добавим немного фактуры на фон */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><path fill="%233d3229" d="M1 3h1v1H1zM3 1h1v1H3z" opacity="0.15"/></svg>');
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.3;
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+<nav>
+<ul>
+<li><a href="index.html">Главная</a></li>
+<li><a href="characters.html">Персонажи</a></li>
+<li><a href="plot.html">Сюжет</a></li>
+<li><a href="quotes.html">Цитаты</a></li>
+<li><a href="system.html">Система образов</a></li>
+</ul>
+</nav>
+</header>
+
+<main>
+
+<h1>Преступление и наказание</h1>
+<p class="subtitle">
+роман о Петербурге, совести и искуплении
+</p>
+
+<section>
+<h2>О авторе</h2>
+
+<div class="author-container">
+<!-- используем изображение из предыдущего варианта, оно хорошо вписывается -->
+<img src="https://avatars.mds.yandex.net/i?id=9597b5efe222b3c3a668062152eb3b4a8024d128-9069926-images-thumbs&n=13" alt="Ф.М. Достоевский">
+
+<div class="author-text">
+<p>
+<strong>Фёдор Михайлович Достоевский</strong> (1821–1881) —
+великий русский писатель, философ и мыслитель.
+Он создавал произведения, в которых исследовал глубины человеческой души,
+моральные противоречия и внутреннюю борьбу человека.
+</p>
+
+<p>
+Роман «Преступление и наказание» был написан в 1866 году
+в тяжёлый период жизни писателя — во время долгов,
+финансовых трудностей и сильного психологического напряжения.
+Произведение публиковалось частями в журнале.
+</p>
+
+<p>
+Достоевский показал Петербург как мрачный,
+давящий город, отражающий внутреннее состояние героя.
+Он мастерски раскрыл психологию преступления —
+не внешнюю, а внутреннюю трагедию человека.
+</p>
+</div>
+</div>
+
+<div class="idea">
+Главная идея романа — показать,
+что никакая теория не может оправдать убийство,
+а истинное спасение человека возможно только через
+раскаяние, страдание и духовное возрождение.
+</div>
+
+<button onclick="alert('Совесть сильнее любой теории.')">
+Главная мысль
+</button>
+
+</section>
+
+<!-- дополнительные элементы в стиле фото: локации внизу (как намёк на Сенную, каналы) -->
+<section style="background: #dacdc0; color: #1f1a15;">
+<h2>Места действия</h2>
+<div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; font-size: 1.2rem;">
+<span>🏚️ Сенная площадь</span>
+<span>🌊 Каналы Петербурга</span>
+<span>🌉 Нева</span>
+<span>🚪 Дом Раскольникова</span>
+</div>
+</section>
+
+</main>
+
+<footer>
+© Преступление и наказание · атмосфера Петербурга
+</footer>
+
+</body>
+</html>

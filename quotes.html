@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Цитаты | Преступление и наказание</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Georgia', 'Palatino Linotype', serif;
+    /* глубокий тёмно-коричневый фон, как на главной */
+    background: #1f1a15;
+    color: #e2d9c7; /* тёплый светлый беж */
+}
+
+/* Шапка — полностью как на главной */
+header {
+    position: fixed;
+    width: 100%;
+    background: rgba(18, 14, 10, 0.98); /* очень тёмный коричневый */
+    padding: 18px 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+    border-bottom: 1px solid #6e5b4b;
+    text-align: center;
+}
+
+header a {
+    color: #cbb59b; /* приглушённый золотисто-песочный */
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 2px black;
+    transition: 0.25s;
+}
+
+header a:hover {
+    color: #eedece;
+    border-bottom: 1px solid #b49474;
+    padding-bottom: 3px;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    padding-top: 120px; /* компенсация фиксированной шапки */
+    font-size: 60px;
+    color: #e1cbb3; /* песочный, как на главной */
+    letter-spacing: 4px;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px #2f241b;
+    background-color: #1f1a15; /* чтобы фон не менялся */
+}
+
+/* Аудио сверху */
+.audio-container {
+    text-align: center;
+    margin: 30px 0 40px;
+}
+
+.audio-container audio {
+    width: 60%;
+    max-width: 700px;
+    border-radius: 0px; /* прямоугольные формы */
+    outline: none;
+    background: #3b2e22;
+    border: 2px solid #ab8d70;
+    box-shadow: 8px 8px 0 #2f241b;
+}
+
+/* Контейнер цитат */
+.container {
+    width: 80%;
+    margin: 0 auto 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+/* Карточка цитаты — стилизована под винтаж */
+.quote-card {
+    position: relative;
+    background: #efe6d7; /* старая бумага, как в секциях */
+    color: #221c16;
+    border-left: 6px solid #8b6f50; /* тёплый акцент */
+    padding: 40px 40px 30px 40px;
+    border-radius: 0px;
+    box-shadow: 10px 10px 0px #3b2e22; /* намёк на винтаж */
+    transition: transform 0.25s;
+    border: 1px solid #755e48;
+    min-height: 260px; /* чтобы картинка не вылезала */
+}
+
+.quote-card:hover {
+    transform: scale(1.01);
+    box-shadow: 12px 12px 0px #2f241b;
+}
+
+/* Изображение в карточке */
+.quote-card img {
+    width: 140px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0px;
+    position: absolute;
+    top: -20px;
+    right: 40px;
+    box-shadow: 8px 8px 0px #3b2e22;
+    border: 1px solid #755e48;
+    background: #b8a68f;
+}
+
+.quote-card p {
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.7;
+    color: #2d241d;
+    max-width: 70%; /* уступаем место картинке */
+    margin-bottom: 20px;
+}
+
+.quote-card span {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #5a3e2b; /* глубокий кофейный */
+    letter-spacing: 0.5px;
+    border-top: 1px dashed #a2866b;
+    padding-top: 15px;
+}
+
+/* Футер */
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #9e8d79;
+    font-size: 0.95rem;
+    border-top: 1px solid #3b2e22;
+    width: 80%;
+    margin: 20px auto 0;
+}
+
+/* дополнительная фактура как на главной */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><path fill="%233d3229" d="M1 3h1v1H1zM3 1h1v1H3z" opacity="0.15"/></svg>');
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.25;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 800px) {
+    .quote-card img {
+        position: static;
+        display: block;
+        margin: 0 auto 20px;
+        width: 120px;
+        height: 170px;
+    }
+    .quote-card p {
+        max-width: 100%;
+    }
+    .container {
+        width: 95%;
+    }
+    h1 {
+        font-size: 44px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<a href="index.html">Главная</a>
+<a href="characters.html">Персонажи</a>
+<a href="plot.html">Сюжет</a>
+<a href="quotes.html">Цитаты</a>
+<a href="system.html">Система образов</a>
+</header>
+
+<h1>Цитаты из романа</h1>
+
+<!-- Аудио сверху -->
+<div class="audio-container">
+<audio controls>
+    <source src="literature.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+</audio>
+</div>
+
+<div class="container">
+
+<!-- Первая цитата -->
+<div class="quote-card">
+<!-- Используем изображение Достоевского, как на главной, но можно заменить на другую ссылку. 
+Оставлена та же, для единообразия. Если нужно другое фото, замените src -->
+<img src="https://i.ytimg.com/vi/aibmX_hAj2U/maxresdefault.jpg" alt="Раскольников">
+<p>
+«Человек, который убивает, чтобы доказать свою исключительность, никогда не найдёт покоя для души. 
+Внутренняя вина всегда сильнее внешних обстоятельств.»
+</p>
+<span>– Родион Раскольников</span>
+</div>
+
+<!-- Вторая цитата -->
+<div class="quote-card">
+<img src="https://i.ytimg.com/vi/2MCh8reuJj8/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYACzgWKAgwIABABGGUgZShlMA8=&amp;rs=AOn4CLCxTJflMCA8iuwOU5UA-steOhU9mw" alt="Соня">
+<p>
+«Спасение возможно лишь через страдание и покаяние. 
+Не сила, не теория, а вера и любовь к ближнему дают человеку свободу.»
+</p>
+<span>– Соня Мармеладова</span>
+</div>
+
+<!-- Третья цитата (без картинки, но в том же стиле) -->
+<div class="quote-card" style="padding-right: 40px;">
+<!-- Для цитаты без картинки просто не вставляем img -->
+<p style="max-width: 100%;">
+«Тот, кто живёт без морали, без внутреннего закона, обречён на пустоту и разочарование.»
+</p>
+<span>– Аркадий Свидригайлов</span>
+</div>
+
+</div>
+
+<footer>
+© Цитаты из романа «Преступление и наказание»
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Персонажи | Преступление и наказание</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    /* глубокий тёмно-коричневый фон, как на главной и странице цитат */
+    background: #1f1a15;
+    color: #e2d9c7; /* тёплый светлый беж для общего текста */
+}
+
+/* Фиксированная шапка в едином стиле */
+header {
+    position: fixed;
+    width: 100%;
+    background: rgba(18, 14, 10, 0.98); /* очень тёмный коричневый */
+    padding: 18px 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+    border-bottom: 1px solid #6e5b4b;
+    text-align: center;
+}
+
+header a {
+    color: #cbb59b; /* приглушённый золотисто-песочный */
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 2px black;
+    transition: 0.25s;
+    display: inline-block;
+}
+
+header a:hover {
+    color: #eedece;
+    border-bottom: 1px solid #b49474;
+    padding-bottom: 3px;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    padding-top: 120px; /* компенсация фиксированной шапки */
+    font-size: 60px;
+    color: #e1cbb3; /* песочный, как на главной */
+    letter-spacing: 4px;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px #2f241b;
+    background-color: #1f1a15; 
+}
+
+.container {
+    width: 85%;
+    max-width: 1300px;
+    margin: 30px auto 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+
+/* Карточка персонажа — стиль старой бумаги */
+.character-card {
+    display: flex;
+    gap: 35px;
+    background: #efe6d7; /* светлая старая бумага */
+    color: #221c16;
+    padding: 40px 45px 40px 40px;
+    border-left: 6px solid #8b6f50; /* тёплый акцент */
+    border-radius: 0px;
+    box-shadow: 10px 10px 0px #3b2e22; /* винтажная тень */
+    transition: transform 0.25s, box-shadow 0.25s;
+    border: 1px solid #755e48;
+}
+
+.character-card:hover {
+    transform: scale(1.01);
+    box-shadow: 12px 12px 0px #2f241b;
+}
+
+/* Изображение персонажа */
+.character-card img {
+    width: 220px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 0px;
+    background: #b8a68f;
+    box-shadow: 8px 8px 0px #3b2e22;
+    border: 1px solid #755e48;
+    flex-shrink: 0;
+}
+
+.character-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.character-text h2 {
+    margin-bottom: 20px;
+    color: #5a3e2b; /* глубокий кофейный */
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-bottom: 1px dashed #a2866b;
+    padding-bottom: 8px;
+}
+
+.character-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #2d241d;
+    text-align: justify;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #9e8d79;
+    font-size: 0.95rem;
+    border-top: 1px solid #3b2e22;
+    width: 80%;
+    margin: 20px auto 0;
+}
+
+/* текстурный оверлей как на других страницах */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><path fill="%233d3229" d="M1 3h1v1H1zM3 1h1v1H3z" opacity="0.15"/></svg>');
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.25;
+}
+
+/* Адаптация для планшетов и мобильных */
+@media (max-width: 900px) {
+    .character-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 30px;
+    }
+    .character-card img {
+        width: 200px;
+        height: 270px;
+        margin-bottom: 15px;
+    }
+    .character-text h2 {
+        text-align: center;
+    }
+    .character-text p {
+        text-align: left;
+    }
+    h1 {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+    header a {
+        margin: 0 10px;
+        font-size: 0.95rem;
+    }
+    h1 {
+        font-size: 38px;
+        padding-top: 100px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<a href="index.html">Главная</a>
+<a href="plot.html">Сюжет</a>
+<a href="quotes.html">Цитаты</a>
+<a href="system.html">Система образов</a>
+</header>
+
+<h1>Персонажи романа</h1>
+
+<div class="container">
+
+<!-- Раскольников -->
+<div class="character-card">
+<img src="https://avatars.mds.yandex.net/i?id=db5c89b8f65169c252fc59ad72776e241dcf1078-16848981-images-thumbs&n=13"Родион Раскольников">
+<div class="character-text">
+<h2>Родион Раскольников</h2>
+<p>
+Появляется в начале романа как бедный студент, живущий в мрачном Петербурге. 
+Создаёт теорию «сильной личности», которая якобы имеет право на преступление ради высшей цели. 
+Совершает убийство старухи-процентщицы, что становится центральным событием сюжета. 
+Постепенно его мировоззрение рушится под тяжестью вины, страха и внутреннего раскола. 
+Через страдание и влияние Сони он приходит к раскаянию. 
+Его духовная эволюция — путь от гордого отрицания морали к признанию ценности человеческой жизни.
+</p>
+</div>
+</div>
+
+<!-- Соня Мармеладова -->
+<div class="character-card">
+<img src="https://static.tildacdn.com/tild3935-3331-4436-a133-323366373830/_.png" alt="Соня Мармеладова">
+<div class="character-text">
+<h2>Соня Мармеладова</h2>
+<p>
+Появляется как дочь бедного чиновника Мармеладова, вынужденная пойти на жертву ради семьи. 
+Она живёт по законам христианского смирения и любви. 
+Её мировоззрение противоположно теории Раскольникова: для неё главное — сострадание и вера. 
+Именно Соня становится духовным ориентиром героя, читает ему Евангелие и убеждает признаться. 
+Она сопровождает его в ссылку, символизируя надежду на возрождение. 
+Через её образ раскрывается идея спасения через страдание.
+</p>
+</div>
+</div>
+
+<!-- Разумихин -->
+<div class="character-card">
+<img src="https://i.pinimg.com/736x/9e/1b/4c/9e1b4ce152b838fc14bb1662dfa8612f.jpg" alt="Дмитрий Разумихин">
+<div class="character-text">
+<h2>Дмитрий Разумихин</h2>
+<p>
+Друг Раскольникова, появляется как энергичный и добрый студент. 
+В отличие от главного героя, он не строит разрушительных теорий, а действует честно и открыто. 
+Его мировоззрение основано на труде, искренности и поддержке близких. 
+Разумихин заботится о матери и сестре Раскольникова, постепенно сближается с Дуней. 
+Он показывает альтернативный путь — путь нормальной жизни без гордыни. 
+Через него автор подчёркивает ценность простого человеческого счастья.
+</p>
+</div>
+</div>
+
+<!-- Свидригайлов -->
+<div class="character-card">
+<img src="https://sun9-7.userapi.com/impg/yys_yP25mpKxvLFPOwkPqkOtNd_2wEgYCfimHw/21ONLeBMJ-8.jpg?size=453x604&quality=95&sign=a1dca920fb7560e9f0bfe64d99de86bd&type=album" alt="Аркадий Свидригайлов">
+<div class="character-text">
+<h2>Аркадий Свидригайлов</h2>
+<p>
+Загадочный и противоречивый персонаж, появляющийся во второй части романа. 
+Он живёт по принципу личной выгоды и удовольствия, не верит в моральные ограничения. 
+Свидригайлов становится своеобразным отражением возможного будущего Раскольникова — человека без нравственного тормоза. 
+Его поступки влияют на судьбу Дуни и усиливают напряжение сюжета. 
+Осознание внутренней пустоты приводит его к трагическому финалу. 
+Его образ подчёркивает опасность полного отрицания нравственных законов.
+</p>
+</div>
+</div>
+
+<!-- Дуня -->
+<div class="character-card">
+<img src="https://24smi.org/public/media/resize/800x-/2018/5/25/79.jpg" alt="Авдотья Романовна">
+<div class="character-text">
+<h2>Авдотья Романовна (Дуня)</h2>
+<p>
+Сестра Раскольникова, появляется как сильная и гордая женщина, готовая жертвовать собой ради семьи. 
+Сначала соглашается на брак по расчёту, чтобы помочь брату. 
+Её мировоззрение строится на достоинстве и внутренней силе. 
+Отказывается подчиниться Свидригайлову и Лужину, защищая свою честь. 
+Её поступки усиливают моральный контраст между персонажами. 
+Дуня влияет на сюжет, показывая, что истинная сила — в нравственной стойкости.
+</p>
+</div>
+</div>
+
+</div>
+
+<footer>
+© Анализ романа «Преступление и наказание»
+</footer>
+
+</body>
+</html>
