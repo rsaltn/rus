@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Фильм | Преступление и наказание</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: #14100c;
+    color: #e2d9c7;
+    animation: subtleFlicker 8s infinite ease-in-out;
+}
+
+/* Зернистая текстура */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="1" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.04"/></svg>');
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+}
+
+@keyframes subtleFlicker {
+    0% { background-color: #14100c; }
+    50% { background-color: #1a1510; }
+    100% { background-color: #14100c; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Шапка */
+header {
+    position: fixed;
+    width: 100%;
+    background: rgba(12, 9, 7, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 16px 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(107, 85, 66, 0.4);
+    text-align: center;
+}
+
+header a {
+    color: #d4c1a8;
+    margin: 0 18px;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+    border-bottom: 1px solid transparent;
+    display: inline-block;
+}
+
+header a:hover {
+    color: #f7ecd9;
+    border-bottom-color: #e2b87a;
+    text-shadow: 0 0 6px rgba(226, 184, 122, 0.5);
+    transform: translateY(-1px);
+}
+
+.nav-highlight {
+    color: #e2b87a;
+    font-weight: 600;
+}
+
+/* Заголовок */
+h1 {
+    text-align: center;
+    margin: 0;
+    padding-top: 110px;
+    font-size: 58px;
+    color: #ecd9bc;
+    letter-spacing: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0 #2b2019;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #bcab92;
+    margin-bottom: 40px;
+    font-style: italic;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.05s;
+    opacity: 0;
+}
+
+.container {
+    width: 88%;
+    max-width: 1300px;
+    margin: 0 auto 60px;
+}
+
+/* ========== БЛОК ВНЕШНЕЙ ССЫЛКИ НА ФИЛЬМ (ОСНОВНОЙ) ========== */
+.external-link-block {
+    background: linear-gradient(135deg, #1f1a15 0%, #2a1a15 100%);
+    border: 2px solid #b87c4f;
+    border-radius: 32px;
+    padding: 35px 40px;
+    margin-bottom: 50px;
+    text-align: center;
+    transition: all 0.35s ease;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.1s;
+    opacity: 0;
+    box-shadow: 0 15px 30px -10px rgba(0,0,0,0.5);
+}
+
+.external-link-block:hover {
+    transform: translateY(-5px);
+    border-color: #e2b87a;
+    box-shadow: 0 25px 40px -12px rgba(226, 184, 122, 0.2);
+}
+
+.external-link-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.external-link-block h2 {
+    font-size: 2rem;
+    color: #ecd9bc;
+    margin-bottom: 10px;
+}
+
+.external-link-block p {
+    color: #bcab92;
+    margin-bottom: 25px;
+}
+
+.external-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #b87c4f, #8b5a3c);
+    color: #fff4e8;
+    text-decoration: none;
+    padding: 16px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 60px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+}
+
+.external-button:hover {
+    background: linear-gradient(135deg, #d49562, #a56e48);
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.external-note {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #8a7a64;
+}
+
+/* ========== СЕТКА ЭКРАНИЗАЦИЙ (КАЖДАЯ КАРТОЧКА - ССЫЛКА) ========== */
+.adaptations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* Карточка как ссылка */
+.adaptation-link {
+    text-decoration: none;
+    display: block;
+    transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.adaptation-link:nth-child(1) { animation-delay: 0.2s; }
+.adaptation-link:nth-child(2) { animation-delay: 0.25s; }
+.adaptation-link:nth-child(3) { animation-delay: 0.3s; }
+.adaptation-link:nth-child(4) { animation-delay: 0.35s; }
+
+.adaptation-link:hover {
+    transform: translateY(-8px);
+}
+
+.adaptation-card {
+    background: #f8f1e4;
+    color: #2c241e;
+    padding: 25px;
+    border-radius: 24px;
+    border: 1px solid rgba(184, 124, 79, 0.2);
+    transition: all 0.35s ease;
+    height: 100%;
+    cursor: pointer;
+}
+
+.adaptation-link:hover .adaptation-card {
+    box-shadow: 0 25px 35px -12px black;
+    border-color: rgba(184, 124, 79, 0.6);
+    background: #fff8f0;
+}
+
+.adaptation-card h3 {
+    font-size: 1.5rem;
+    color: #7a4f31;
+    margin-bottom: 5px;
+}
+
+.adaptation-card .year {
+    font-size: 0.9rem;
+    color: #b87c4f;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.adaptation-card .director {
+    font-size: 0.85rem;
+    color: #8a7a64;
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
+.adaptation-card .rating {
+    font-size: 1rem;
+    color: #d4a259;
+    margin-bottom: 12px;
+}
+
+.adaptation-card p {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #3e2f22;
+}
+
+.adaptation-card .watch-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #b87c4f;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.adaptation-link:hover .watch-link {
+    color: #8b5a3c;
+    text-decoration: underline;
+}
+
+/* ========== ТАБЛИЦА АКТЁРОВ ========== */
+.actors-block {
+    background: #1f1a15;
+    border-radius: 28px;
+    padding: 30px;
+    margin-bottom: 50px;
+    border: 1px solid #b87c4f;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.45s;
+    opacity: 0;
+}
+
+.actors-block h3 {
+    font-size: 1.5rem;
+    color: #ecd9bc;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.actors-table {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.actor-col {
+    flex: 1;
+    min-width: 200px;
+    background: #2a221b;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.actor-col h4 {
+    color: #d4a259;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 1px solid #b87c4f;
+    padding-bottom: 8px;
+}
+
+.actor-col ul {
+    list-style: none;
+}
+
+.actor-col li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #4a3a2a;
+    font-size: 0.9rem;
+    color: #e2d9c7;
+}
+
+.actor-col li strong {
+    color: #d4a259;
+}
+
+/* ========== ОТЛИЧИЯ ФИЛЬМА ОТ КНИГИ ========== */
+.differences-block {
+    background: #f8f1e4;
+    border-radius: 28px;
+    padding: 30px 35px;
+    margin-bottom: 50px;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+}
+
+.differences-block h3 {
+    font-size: 1.5rem;
+    color: #7a4f31;
+    margin-bottom: 20px;
+    border-left: 4px solid #b87c4f;
+    padding-left: 15px;
+}
+
+.differences-list {
+    list-style: none;
+}
+
+.differences-list li {
+    padding: 12px 0;
+    border-bottom: 1px dashed #d4c1a8;
+    color: #3e2f22;
+    font-size: 1rem;
+}
+
+.differences-list li:last-child {
+    border-bottom: none;
+}
+
+.differences-list li::before {
+    content: "🎬 ";
+    margin-right: 10px;
+    color: #b87c4f;
+}
+
+/* ========== ВСТРОЕННОЕ ВИДЕО (ТРЕЙЛЕР) ========== */
+.video-block {
+    background: #1f1a15;
+    border-radius: 28px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid #b87c4f;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.55s;
+    opacity: 0;
+}
+
+.video-block h3 {
+    font-size: 1.5rem;
+    color: #ecd9bc;
+    margin-bottom: 20px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: none;
+}
+
+/* Футер */
+footer {
+    text-align: center;
+    padding: 35px;
+    color: #a38d72;
+    font-size: 0.9rem;
+    border-top: 1px solid #2f251e;
+    margin-top: 50px;
+}
+
+/* Адаптив */
+@media (max-width: 800px) {
+    h1 { font-size: 44px; padding-top: 100px; }
+    .subtitle { font-size: 1rem; }
+    .external-link-block { padding: 25px; }
+    .external-button { padding: 12px 30px; font-size: 1rem; }
+    .adaptations-grid { grid-template-columns: 1fr; }
+    .actors-table { flex-direction: column; }
+    header a { margin: 0 10px; font-size: 0.85rem; }
+    .container { width: 92%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <a href="index.html">Главная</a>
+    <a href="characters.html">Персонажи</a>
+    <a href="plot.html">Сюжет</a>
+    <a href="quotes.html">Цитаты</a>
+    <a href="system.html">Система образов</a>
+    <a href="book.html" class="nav-highlight">📖 Роман</a>
+    <a href="film.html" class="nav-highlight">🎬 Фильм</a>
+</header>
+
+<h1>Экранизации романа</h1>
+<p class="subtitle">преступление и наказание на экране</p>
+
+<div class="container">
+
+    <!-- ========================================== -->
+    <!-- ВСТАВЬТЕ ВАШУ ССЫЛКУ НА ОСНОВНОЙ ФИЛЬМ     -->
+    <!-- (например, ссылку на фильм 1969 года)       -->
+    <!-- ========================================== -->
+    <div class="external-link-block">
+        <div class="external-link-icon">🎬</div>
+        <h2>Смотреть фильм онлайн</h2>
+        <p>Лучшая экранизация романа «Преступление и наказание» (1969)</p>
+        <!-- 👇👇👇 ССЫЛКА НА ОСНОВНОЙ ФИЛЬМ - ЗАМЕНИТЕ 👇👇👇 -->
+        <a href="https://www.film.ru/movies/prestuplenie-i-nakazanie/online" target="_blank" rel="noopener noreferrer" class="external-button">
+            🎥 Смотреть фильм 1969
+        </a>
+        <!-- 👆👆👆 ССЫЛКА НА ОСНОВНОЙ ФИЛЬМ 👆👆👆 -->
+        <div class="external-note">
+            📌 Фильм откроется в новой вкладке · рекомендуется к просмотру после прочтения книги
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- СЕТКА ЭКРАНИЗАЦИЙ (КАЖДАЯ КАРТОЧКА - ССЫЛКА) -->
+    ========================================== -->
+    <div class="adaptations-grid">
+
+        <!-- 1. Фильм 1969 года (СССР) -->
+        <!-- 👇👇👇 ССЫЛКА НА ФИЛЬМ 1969 👇👇👇 -->
+        <a href="https://www.film.ru/movies/prestuplenie-i-nakazanie/online" target="_blank" rel="noopener noreferrer" class="adaptation-link">
+            <!-- 👆👆👆 ССЫЛКА НА ФИЛЬМ 1969 👆👆👆 -->
+            <div class="adaptation-card">
+                <h3>Преступление и наказание</h3>
+                <div class="year">1969 (СССР)</div>
+                <div class="director">реж. Лев Кулиджанов</div>
+                <div class="rating">★★★★★</div>
+                <p>Классическая советская экранизация, максимально близкая к тексту. В роли Раскольникова — Георгий Тараторкин, Сони — Татьяна Бедова. Иннокентий Смоктуновский в роли Порфирия Петровича.</p>
+                <div class="watch-link">🎥 Смотреть на Film.ru →</div>
+            </div>
+        </a>
+
+        <!-- 2. Фильм 2002 года (Великобритания) -->
+        <!-- ВНИМАНИЕ: эта версия НЕ ДОСТУПНА в открытом интернете -->
+        <div class="adaptation-link" style="cursor: default; opacity: 0.7;">
+            <div class="adaptation-card">
+                <h3>Crime and Punishment</h3>
+                <div class="year">2002 (Великобритания)</div>
+                <div class="director">реж. Джулиан Джаррольд</div>
+                <div class="rating">★★★★☆</div>
+                <p>Телевизионная экранизация BBC с Джоном Симмом в роли Раскольникова. Действие перенесено в современный Лондон. В России официально недоступна.</p>
+                <div class="watch-link">⚠️ В открытом доступе нет</div>
+            </div>
+        </div>
+
+        <!-- 3. Сериал 2007 года (Россия) -->
+        <!-- 👇👇👇 ССЫЛКА НА СЕРИАЛ 2007 👇👇👇 -->
+        <a href="https://kino.mail.ru/series_784921_prestuplenie_i_nakazanie/seasons_1/" target="_blank" rel="noopener noreferrer" class="adaptation-link">
+            <!-- 👆👆👆 ССЫЛКА НА СЕРИАЛ 2007 👆👆👆 -->
+            <div class="adaptation-card">
+                <h3>Преступление и наказание</h3>
+                <div class="year">2007 (Россия)</div>
+                <div class="director">реж. Дмитрий Светозаров</div>
+                <div class="rating">★★★☆☆</div>
+                <p>8-серийный телесериал. В роли Раскольникова — Владимир Кошевой, Сони — Полина Филоненко. Премьера на Первом канале.</p>
+                <div class="watch-link">🎥 Смотреть на Кино Mail.ru →</div>
+            </div>
+        </a>
+
+        <!-- 4. Сериал 2024 года (Россия) -->
+        <!-- 👇👇👇 ССЫЛКА НА СЕРИАЛ 2024 👇👇👇 -->
+        <a href="https://kinogoo.fm/2581-prestuplenie-i-nakazanie.html"_blank" rel="noopener noreferrer" class="adaptation-link">
+            <!-- 👆👆👆 ССЫЛКА НА СЕРИАЛ 2024 👆👆👆 -->
+            <div class="adaptation-card">
+                <h3>Преступление и наказание</h3>
+                <div class="year">2024 (Россия)</div>
+                <div class="director">реж. Владимир Мирзоев</div>
+                <div class="rating">★★★★☆</div>
+                <p>Современный сериал с Иваном Янковским (Раскольников) и Лианой Грибановой (Соня). Нестандартная режиссура, вызвавшая полярные отзывы.</p>
+                <div class="watch-link">🎥 Смотреть на Кино го →</div>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- Актёры и роли -->
+    <div class="actors-block">
+        <h3>🎭 Актёры и роли (сравнение)</h3>
+        <div class="actors-table">
+            <div class="actor-col">
+                <h4>Родион Раскольников</h4>
+                <ul>
+                    <li><strong>1969:</strong> Георгий Тараторкин</li>
+                    <li><strong>2002:</strong> Джон Симм</li>
+                    <li><strong>2007:</strong> Владимир Кошевой</li>
+                    <li><strong>2024:</strong> Иван Янковский</li>
+                </ul>
+            </div>
+            <div class="actor-col">
+                <h4>Соня Мармеладова</h4>
+                <ul>
+                    <li><strong>1969:</strong> Татьяна Бедова</li>
+                    <li><strong>2002:</strong> Кэтрин Маккормак</li>
+                    <li><strong>2007:</strong> Полина Филоненко</li>
+                    <li><strong>2024:</strong> Лиана Грибанова</li>
+                </ul>
+            </div>
+            <div class="actor-col">
+                <h4>Порфирий Петрович</h4>
+                <ul>
+                    <li><strong>1969:</strong> Иннокентий Смоктуновский</li>
+                    <li><strong>2007:</strong> Юрий Кузнецов</li>
+                    <li><strong>2024:</strong> Тихон Жизневский</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Отличия фильма от книги -->
+    <div class="differences-block">
+        <h3>📝 Отличия фильма от книги</h3>
+        <ul class="differences-list">
+            <li><strong>Экранизация 1969 года:</strong> максимально близка к тексту, но сокращена линия Лужина и некоторые философские монологи</li>
+            <li><strong>Британская версия 2002 года:</strong> действие перенесено в современный Лондон, изменены имена некоторых персонажей</li>
+            <li><strong>Сериал 2007 года:</strong> добавлены сцены, которых нет в книге (линия следователя), изменён финал Свидригайлова</li>
+            <li><strong>Сериал 2024 года:</strong> акцент на визуальный ряд и психологизм, некоторые диалоги переписаны современным языком</li>
+        </ul>
+    </div>
+
+    <!-- Встроенное видео (трейлер 2024) -->
+    <div class="video-block">
+        <h3>🎬 Трейлер сериала 2024 года</h3>
+        <div class="video-container">
+            <!-- 👇👇👇 ВСТАВЬТЕ ССЫЛКУ НА ТРЕЙЛЕР (YouTube embed) 👇👇👇 -->
+            <iframe src="trailer.mp4" 
+                    title="Преступление и наказание трейлер 2024" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+            <!-- 👆👆👆 ВСТАВЬТЕ ССЫЛКУ НА ТРЕЙЛЕР 👆👆👆 -->
+        </div>
+        <div class="external-note" style="margin-top: 15px;">
+            📌 Официальный трейлер сериала 2024 года от Кинопоиска
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    © Преступление и наказание · все экранизации
+</footer>
+
+</body>
+</html>

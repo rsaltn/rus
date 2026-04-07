@@ -2,292 +2,219 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Персонажи | Преступление и наказание</title>
-
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
     font-family: 'Georgia', 'Times New Roman', serif;
-    /* глубокий тёмно-коричневый фон, как на главной и странице цитат */
-    background: #1f1a15;
-    color: #e2d9c7; /* тёплый светлый беж для общего текста */
+    background: #14100c;
+    color: #e2d9c7;
+    animation: subtleFlicker 8s infinite ease-in-out;
 }
 
-/* Фиксированная шапка в едином стиле */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="1" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.04"/></svg>');
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+}
+
+@keyframes subtleFlicker {
+    0% { background-color: #14100c; }
+    50% { background-color: #1a1510; }
+    100% { background-color: #14100c; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 header {
     position: fixed;
     width: 100%;
-    background: rgba(18, 14, 10, 0.98); /* очень тёмный коричневый */
-    padding: 18px 0;
+    background: rgba(12, 9, 7, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 16px 0;
     z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.8);
-    border-bottom: 1px solid #6e5b4b;
+    border-bottom: 1px solid rgba(107, 85, 66, 0.4);
     text-align: center;
 }
 
 header a {
-    color: #cbb59b; /* приглушённый золотисто-песочный */
-    margin: 0 20px;
+    color: #d4c1a8;
+    margin: 0 18px;
     text-decoration: none;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    font-size: 1.1rem;
-    text-shadow: 0 1px 2px black;
-    transition: 0.25s;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+    border-bottom: 1px solid transparent;
     display: inline-block;
 }
 
 header a:hover {
-    color: #eedece;
-    border-bottom: 1px solid #b49474;
-    padding-bottom: 3px;
+    color: #f7ecd9;
+    border-bottom-color: #e2b87a;
+    text-shadow: 0 0 6px rgba(226, 184, 122, 0.5);
+    transform: translateY(-1px);
 }
+
+.nav-highlight { color: #e2b87a; font-weight: 600; }
 
 h1 {
     text-align: center;
-    margin: 0;
-    padding-top: 120px; /* компенсация фиксированной шапки */
-    font-size: 60px;
-    color: #e1cbb3; /* песочный, как на главной */
+    padding-top: 110px;
+    font-size: 58px;
+    color: #ecd9bc;
     letter-spacing: 4px;
-    font-weight: normal;
-    text-transform: uppercase;
-    text-shadow: 3px 3px 0px #2f241b;
-    background-color: #1f1a15; 
+    font-weight: 500;
+    text-shadow: 3px 3px 0 #2b2019;
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .container {
-    width: 85%;
+    width: 88%;
     max-width: 1300px;
-    margin: 30px auto 50px;
+    margin: 40px auto 60px;
     display: flex;
     flex-direction: column;
-    gap: 45px;
+    gap: 40px;
 }
 
-/* Карточка персонажа — стиль старой бумаги */
 .character-card {
     display: flex;
-    gap: 35px;
-    background: #efe6d7; /* светлая старая бумага */
-    color: #221c16;
-    padding: 40px 45px 40px 40px;
-    border-left: 6px solid #8b6f50; /* тёплый акцент */
-    border-radius: 0px;
-    box-shadow: 10px 10px 0px #3b2e22; /* винтажная тень */
-    transition: transform 0.25s, box-shadow 0.25s;
-    border: 1px solid #755e48;
+    gap: 40px;
+    background: #f8f1e4;
+    color: #2c241e;
+    padding: 35px 45px;
+    border-radius: 28px;
+    box-shadow: 0 15px 30px -8px rgba(0,0,0,0.4);
+    transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    border: 1px solid rgba(184, 124, 79, 0.2);
 }
+
+.character-card:nth-child(1) { animation-delay: 0.1s; }
+.character-card:nth-child(2) { animation-delay: 0.2s; }
+.character-card:nth-child(3) { animation-delay: 0.3s; }
+.character-card:nth-child(4) { animation-delay: 0.4s; }
+.character-card:nth-child(5) { animation-delay: 0.5s; }
 
 .character-card:hover {
-    transform: scale(1.01);
-    box-shadow: 12px 12px 0px #2f241b;
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 25px 40px -12px black;
+    border-color: rgba(184, 124, 79, 0.5);
 }
 
-/* Изображение персонажа */
 .character-card img {
-    width: 220px;
-    height: 300px;
+    width: 210px;
+    height: 280px;
     object-fit: cover;
-    border-radius: 0px;
-    background: #b8a68f;
-    box-shadow: 8px 8px 0px #3b2e22;
-    border: 1px solid #755e48;
-    flex-shrink: 0;
+    border-radius: 24px;
+    box-shadow: 10px 10px 0 #d4c1a8;
+    border: 1px solid #bcab92;
+    transition: all 0.3s ease;
 }
 
-.character-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.character-card img:hover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 8px 8px 0 #b87c4f;
 }
 
+.character-text { flex: 1; }
 .character-text h2 {
-    margin-bottom: 20px;
-    color: #5a3e2b; /* глубокий кофейный */
-    font-size: 30px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    border-bottom: 1px dashed #a2866b;
-    padding-bottom: 8px;
+    margin-bottom: 18px;
+    color: #7a4f31;
+    font-size: 32px;
+    border-left: 5px solid #b87c4f;
+    padding-left: 20px;
 }
-
 .character-text p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #2d241d;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: #2c241e;
     text-align: justify;
 }
 
 footer {
     text-align: center;
     padding: 30px;
-    color: #9e8d79;
-    font-size: 0.95rem;
-    border-top: 1px solid #3b2e22;
-    width: 80%;
-    margin: 20px auto 0;
+    color: #a38d72;
+    border-top: 1px solid #2f251e;
+    width: 85%;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
 }
 
-/* текстурный оверлей как на других страницах */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><path fill="%233d3229" d="M1 3h1v1H1zM3 1h1v1H3z" opacity="0.15"/></svg>');
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.25;
-}
-
-/* Адаптация для планшетов и мобильных */
-@media (max-width: 900px) {
-    .character-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 30px;
-    }
-    .character-card img {
-        width: 200px;
-        height: 270px;
-        margin-bottom: 15px;
-    }
-    .character-text h2 {
-        text-align: center;
-    }
-    .character-text p {
-        text-align: left;
-    }
-    h1 {
-        font-size: 48px;
-    }
-}
-
-@media (max-width: 600px) {
-    .container {
-        width: 95%;
-    }
-    header a {
-        margin: 0 10px;
-        font-size: 0.95rem;
-    }
-    h1 {
-        font-size: 38px;
-        padding-top: 100px;
-    }
+@media (max-width: 850px) {
+    .character-card { flex-direction: column; align-items: center; text-align: center; padding: 30px; }
+    .character-text h2 { text-align: center; border-left: none; border-bottom: 2px solid #b87c4f; display: inline-block; }
+    h1 { font-size: 44px; }
+    header a { margin: 0 10px; font-size: 0.85rem; }
 }
 </style>
 </head>
-
 <body>
 
 <header>
-<a href="index.html">Главная</a>
-<a href="plot.html">Сюжет</a>
-<a href="quotes.html">Цитаты</a>
-<a href="system.html">Система образов</a>
+    <a href="index.html">Главная</a>
+    <a href="characters.html">Персонажи</a>
+    <a href="plot.html">Сюжет</a>
+    <a href="quotes.html">Цитаты</a>
+    <a href="system.html">Система образов</a>
+    <a href="book.html" class="nav-highlight">📖 Роман</a>
+    <a href="film.html" class="nav-highlight">🎬 Фильм</a>
 </header>
-
 <h1>Персонажи романа</h1>
-
 <div class="container">
-
-<!-- Раскольников -->
-<div class="character-card">
-<img src="https://avatars.mds.yandex.net/i?id=db5c89b8f65169c252fc59ad72776e241dcf1078-16848981-images-thumbs&n=13"Родион Раскольников">
-<div class="character-text">
-<h2>Родион Раскольников</h2>
-<p>
-Появляется в начале романа как бедный студент, живущий в мрачном Петербурге. 
-Создаёт теорию «сильной личности», которая якобы имеет право на преступление ради высшей цели. 
-Совершает убийство старухи-процентщицы, что становится центральным событием сюжета. 
-Постепенно его мировоззрение рушится под тяжестью вины, страха и внутреннего раскола. 
-Через страдание и влияние Сони он приходит к раскаянию. 
-Его духовная эволюция — путь от гордого отрицания морали к признанию ценности человеческой жизни.
-</p>
+    <div class="character-card">
+        <img src="https://avatars.mds.yandex.net/i?id=db5c89b8f65169c252fc59ad72776e241dcf1078-16848981-images-thumbs&n=13" alt="Раскольников">
+        <div class="character-text">
+            <h2>Родион Раскольников</h2>
+            <p>Появляется в начале романа как бедный студент, живущий в мрачном Петербурге. Создаёт теорию «сильной личности», которая якобы имеет право на преступление ради высшей цели. Совершает убийство старухи-процентщицы, что становится центральным событием сюжета. Постепенно его мировоззрение рушится под тяжестью вины, страха и внутреннего раскола. Через страдание и влияние Сони он приходит к раскаянию. Его духовная эволюция — путь от гордого отрицания морали к признанию ценности человеческой жизни.</p>
+        </div>
+    </div>
+    <div class="character-card">
+        <img src="https://static.tildacdn.com/tild3935-3331-4436-a133-323366373830/_.png" alt="Соня">
+        <div class="character-text">
+            <h2>Соня Мармеладова</h2>
+            <p>Появляется как дочь бедного чиновника Мармеладова, вынужденная пойти на жертву ради семьи. Она живёт по законам христианского смирения и любви. Её мировоззрение противоположно теории Раскольникова: для неё главное — сострадание и вера. Именно Соня становится духовным ориентиром героя, читает ему Евангелие и убеждает признаться. Она сопровождает его в ссылку, символизируя надежду на возрождение. Через её образ раскрывается идея спасения через страдание.</p>
+        </div>
+    </div>
+    <div class="character-card">
+        <img src="https://i.pinimg.com/736x/9e/1b/4c/9e1b4ce152b838fc14bb1662dfa8612f.jpg" alt="Разумихин">
+        <div class="character-text">
+            <h2>Дмитрий Разумихин</h2>
+            <p>Друг Раскольникова, появляется как энергичный и добрый студент. В отличие от главного героя, он не строит разрушительных теорий, а действует честно и открыто. Его мировоззрение основано на труде, искренности и поддержке близких. Разумихин заботится о матери и сестре Раскольникова, постепенно сближается с Дуней. Он показывает альтернативный путь — путь нормальной жизни без гордыни. Через него автор подчёркивает ценность простого человеческого счастья.</p>
+        </div>
+    </div>
+    <div class="character-card">
+        <img src="https://sun9-7.userapi.com/impg/yys_yP25mpKxvLFPOwkPqkOtNd_2wEgYCfimHw/21ONLeBMJ-8.jpg?size=453x604&quality=95&sign=a1dca920fb7560e9f0bfe64d99de86bd&type=album" alt="Свидригайлов">
+        <div class="character-text">
+            <h2>Аркадий Свидригайлов</h2>
+            <p>Загадочный и противоречивый персонаж, появляющийся во второй части романа. Он живёт по принципу личной выгоды и удовольствия, не верит в моральные ограничения. Свидригайлов становится своеобразным отражением возможного будущего Раскольникова — человека без нравственного тормоза. Его поступки влияют на судьбу Дуни и усиливают напряжение сюжета. Осознание внутренней пустоты приводит его к трагическому финалу. Его образ подчёркивает опасность полного отрицания нравственных законов.</p>
+        </div>
+    </div>
+    <div class="character-card">
+        <img src="https://24smi.org/public/media/resize/800x-/2018/5/25/79.jpg" alt="Дуня">
+        <div class="character-text">
+            <h2>Авдотья Романовна (Дуня)</h2>
+            <p>Сестра Раскольникова, появляется как сильная и гордая женщина, готовая жертвовать собой ради семьи. Сначала соглашается на брак по расчёту, чтобы помочь брату. Её мировоззрение строится на достоинстве и внутренней силе. Отказывается подчиниться Свидригайлову и Лужину, защищая свою честь. Её поступки усиливают моральный контраст между персонажами. Дуня влияет на сюжет, показывая, что истинная сила — в нравственной стойкости.</p>
+        </div>
+    </div>
 </div>
-</div>
-
-<!-- Соня Мармеладова -->
-<div class="character-card">
-<img src="https://static.tildacdn.com/tild3935-3331-4436-a133-323366373830/_.png" alt="Соня Мармеладова">
-<div class="character-text">
-<h2>Соня Мармеладова</h2>
-<p>
-Появляется как дочь бедного чиновника Мармеладова, вынужденная пойти на жертву ради семьи. 
-Она живёт по законам христианского смирения и любви. 
-Её мировоззрение противоположно теории Раскольникова: для неё главное — сострадание и вера. 
-Именно Соня становится духовным ориентиром героя, читает ему Евангелие и убеждает признаться. 
-Она сопровождает его в ссылку, символизируя надежду на возрождение. 
-Через её образ раскрывается идея спасения через страдание.
-</p>
-</div>
-</div>
-
-<!-- Разумихин -->
-<div class="character-card">
-<img src="https://i.pinimg.com/736x/9e/1b/4c/9e1b4ce152b838fc14bb1662dfa8612f.jpg" alt="Дмитрий Разумихин">
-<div class="character-text">
-<h2>Дмитрий Разумихин</h2>
-<p>
-Друг Раскольникова, появляется как энергичный и добрый студент. 
-В отличие от главного героя, он не строит разрушительных теорий, а действует честно и открыто. 
-Его мировоззрение основано на труде, искренности и поддержке близких. 
-Разумихин заботится о матери и сестре Раскольникова, постепенно сближается с Дуней. 
-Он показывает альтернативный путь — путь нормальной жизни без гордыни. 
-Через него автор подчёркивает ценность простого человеческого счастья.
-</p>
-</div>
-</div>
-
-<!-- Свидригайлов -->
-<div class="character-card">
-<img src="https://sun9-7.userapi.com/impg/yys_yP25mpKxvLFPOwkPqkOtNd_2wEgYCfimHw/21ONLeBMJ-8.jpg?size=453x604&quality=95&sign=a1dca920fb7560e9f0bfe64d99de86bd&type=album" alt="Аркадий Свидригайлов">
-<div class="character-text">
-<h2>Аркадий Свидригайлов</h2>
-<p>
-Загадочный и противоречивый персонаж, появляющийся во второй части романа. 
-Он живёт по принципу личной выгоды и удовольствия, не верит в моральные ограничения. 
-Свидригайлов становится своеобразным отражением возможного будущего Раскольникова — человека без нравственного тормоза. 
-Его поступки влияют на судьбу Дуни и усиливают напряжение сюжета. 
-Осознание внутренней пустоты приводит его к трагическому финалу. 
-Его образ подчёркивает опасность полного отрицания нравственных законов.
-</p>
-</div>
-</div>
-
-<!-- Дуня -->
-<div class="character-card">
-<img src="https://24smi.org/public/media/resize/800x-/2018/5/25/79.jpg" alt="Авдотья Романовна">
-<div class="character-text">
-<h2>Авдотья Романовна (Дуня)</h2>
-<p>
-Сестра Раскольникова, появляется как сильная и гордая женщина, готовая жертвовать собой ради семьи. 
-Сначала соглашается на брак по расчёту, чтобы помочь брату. 
-Её мировоззрение строится на достоинстве и внутренней силе. 
-Отказывается подчиниться Свидригайлову и Лужину, защищая свою честь. 
-Её поступки усиливают моральный контраст между персонажами. 
-Дуня влияет на сюжет, показывая, что истинная сила — в нравственной стойкости.
-</p>
-</div>
-</div>
-
-</div>
-
-<footer>
-© Анализ романа «Преступление и наказание»
-</footer>
-
+<footer>© Анализ романа «Преступление и наказание»</footer>
 </body>
 </html>

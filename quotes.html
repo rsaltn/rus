@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Цитаты | Преступление и наказание</title>
 
 <style>
@@ -17,95 +18,158 @@ html {
 
 body {
     font-family: 'Georgia', 'Palatino Linotype', serif;
-    /* глубокий тёмно-коричневый фон, как на главной */
-    background: #1f1a15;
-    color: #e2d9c7; /* тёплый светлый беж */
+    background: #14100c;
+    color: #e2d9c7;
+    animation: subtleFlicker 8s infinite ease-in-out;
 }
 
-/* Шапка — полностью как на главной */
+/* Зернистая текстура */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="1" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.04"/></svg>');
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+    mix-blend-mode: overlay;
+}
+
+/* Мерцание фона */
+@keyframes subtleFlicker {
+    0% { background-color: #14100c; }
+    50% { background-color: #1a1510; }
+    100% { background-color: #14100c; }
+}
+
+/* Плавное появление */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(184, 124, 79, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(184, 124, 79, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(184, 124, 79, 0); }
+}
+
+/* Шапка со стеклом */
 header {
     position: fixed;
     width: 100%;
-    background: rgba(18, 14, 10, 0.98); /* очень тёмный коричневый */
-    padding: 18px 0;
+    background: rgba(12, 9, 7, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 16px 0;
     z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.8);
-    border-bottom: 1px solid #6e5b4b;
+    border-bottom: 1px solid rgba(107, 85, 66, 0.4);
     text-align: center;
 }
 
 header a {
-    color: #cbb59b; /* приглушённый золотисто-песочный */
-    margin: 0 20px;
+    color: #d4c1a8;
+    margin: 0 18px;
     text-decoration: none;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    font-size: 1.1rem;
-    text-shadow: 0 1px 2px black;
-    transition: 0.25s;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    transition: all 0.25s ease;
+    border-bottom: 1px solid transparent;
+    display: inline-block;
 }
 
 header a:hover {
-    color: #eedece;
-    border-bottom: 1px solid #b49474;
-    padding-bottom: 3px;
+    color: #f7ecd9;
+    border-bottom-color: #e2b87a;
+    text-shadow: 0 0 6px rgba(226, 184, 122, 0.5);
+    transform: translateY(-1px);
+}
+
+.nav-highlight {
+    color: #e2b87a;
+    font-weight: 600;
 }
 
 h1 {
     text-align: center;
     margin: 0;
-    padding-top: 120px; /* компенсация фиксированной шапки */
-    font-size: 60px;
-    color: #e1cbb3; /* песочный, как на главной */
+    padding-top: 110px;
+    font-size: 58px;
+    color: #ecd9bc;
     letter-spacing: 4px;
-    font-weight: normal;
+    font-weight: 500;
     text-transform: uppercase;
-    text-shadow: 3px 3px 0px #2f241b;
-    background-color: #1f1a15; /* чтобы фон не менялся */
+    text-shadow: 3px 3px 0 #2b2019;
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* Аудио сверху */
+/* Аудио блок */
 .audio-container {
     text-align: center;
     margin: 30px 0 40px;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.1s;
+    opacity: 0;
 }
 
 .audio-container audio {
-    width: 60%;
-    max-width: 700px;
-    border-radius: 0px; /* прямоугольные формы */
+    width: 55%;
+    max-width: 600px;
+    border-radius: 40px;
     outline: none;
-    background: #3b2e22;
-    border: 2px solid #ab8d70;
-    box-shadow: 8px 8px 0 #2f241b;
+    background: #2a221b;
+    border: 2px solid #b87c4f;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.audio-container audio:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+    border-color: #e2b87a;
 }
 
 /* Контейнер цитат */
 .container {
-    width: 80%;
-    margin: 0 auto 50px;
+    width: 85%;
+    max-width: 1300px;
+    margin: 0 auto 60px;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 45px;
 }
 
-/* Карточка цитаты — стилизована под винтаж */
+/* Карточка цитаты */
 .quote-card {
     position: relative;
-    background: #efe6d7; /* старая бумага, как в секциях */
-    color: #221c16;
-    border-left: 6px solid #8b6f50; /* тёплый акцент */
-    padding: 40px 40px 30px 40px;
-    border-radius: 0px;
-    box-shadow: 10px 10px 0px #3b2e22; /* намёк на винтаж */
-    transition: transform 0.25s;
-    border: 1px solid #755e48;
-    min-height: 260px; /* чтобы картинка не вылезала */
+    background: #f8f1e4;
+    color: #2c241e;
+    padding: 40px 50px 35px 50px;
+    border-radius: 28px;
+    box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+    transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    border: 1px solid rgba(184, 124, 79, 0.2);
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
 }
 
+.quote-card:nth-child(1) { animation-delay: 0.2s; }
+.quote-card:nth-child(2) { animation-delay: 0.35s; }
+.quote-card:nth-child(3) { animation-delay: 0.5s; }
+
 .quote-card:hover {
-    transform: scale(1.01);
-    box-shadow: 12px 12px 0px #2f241b;
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 30px 45px -12px black;
+    border-color: rgba(184, 124, 79, 0.6);
 }
 
 /* Изображение в карточке */
@@ -113,59 +177,87 @@ h1 {
     width: 140px;
     height: 200px;
     object-fit: cover;
-    border-radius: 0px;
+    border-radius: 20px;
     position: absolute;
     top: -20px;
     right: 40px;
-    box-shadow: 8px 8px 0px #3b2e22;
-    border: 1px solid #755e48;
-    background: #b8a68f;
+    box-shadow: 12px 12px 0 #d4c1a8;
+    border: 1px solid #bcab92;
+    transition: all 0.3s ease;
+}
+
+.quote-card img:hover {
+    transform: scale(1.08) rotate(2deg);
+    box-shadow: 8px 8px 0 #b87c4f;
 }
 
 .quote-card p {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-style: italic;
-    line-height: 1.7;
-    color: #2d241d;
-    max-width: 70%; /* уступаем место картинке */
-    margin-bottom: 20px;
+    line-height: 1.65;
+    color: #2c241e;
+    max-width: 70%;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+/* Кавычки вокруг цитаты */
+.quote-card p::before {
+    content: "«";
+    font-size: 3rem;
+    color: #b87c4f;
+    opacity: 0.4;
+    position: absolute;
+    left: -30px;
+    top: -10px;
 }
 
 .quote-card span {
-    display: block;
-    margin-top: 15px;
+    display: inline-block;
+    margin-top: 10px;
     font-weight: bold;
-    font-size: 1.2rem;
-    color: #5a3e2b; /* глубокий кофейный */
+    font-size: 1.15rem;
+    color: #7a4f31;
     letter-spacing: 0.5px;
-    border-top: 1px dashed #a2866b;
+    border-top: 2px dashed #cbb386;
     padding-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.quote-card:hover span {
+    color: #b87c4f;
+    border-top-color: #b87c4f;
+}
+
+/* Третья цитата без картинки — делаем отступ нормальным */
+.quote-card:last-child p {
+    max-width: 100%;
+}
+
+.quote-card:last-child p::before {
+    left: -25px;
 }
 
 /* Футер */
 footer {
     text-align: center;
-    padding: 30px;
-    color: #9e8d79;
-    font-size: 0.95rem;
-    border-top: 1px solid #3b2e22;
-    width: 80%;
-    margin: 20px auto 0;
-}
-
-/* дополнительная фактура как на главной */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><path fill="%233d3229" d="M1 3h1v1H1zM3 1h1v1H3z" opacity="0.15"/></svg>');
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.25;
+    padding: 35px;
+    color: #a38d72;
+    font-size: 0.9rem;
+    border-top: 1px solid #2f251e;
+    width: 85%;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
 }
 
 /* Адаптация для мобильных */
-@media (max-width: 800px) {
+@media (max-width: 900px) {
+    .quote-card {
+        padding: 30px 30px 25px 35px;
+        text-align: center;
+    }
     .quote-card img {
         position: static;
         display: block;
@@ -175,15 +267,36 @@ body::before {
     }
     .quote-card p {
         max-width: 100%;
+        text-align: left;
+    }
+    .quote-card p::before {
+        left: -20px;
+        font-size: 2.5rem;
     }
     .container {
-        width: 95%;
+        width: 92%;
     }
     h1 {
         font-size: 44px;
+        padding-top: 100px;
+    }
+    header a {
+        margin: 0 10px;
+        font-size: 0.85rem;
+    }
+    .audio-container audio {
+        width: 90%;
     }
 }
 
+@media (max-width: 500px) {
+    .quote-card p {
+        font-size: 1.1rem;
+    }
+    .quote-card p::before {
+        display: none;
+    }
+}
 </style>
 
 </head>
@@ -191,60 +304,51 @@ body::before {
 <body>
 
 <header>
-<a href="index.html">Главная</a>
-<a href="characters.html">Персонажи</a>
-<a href="plot.html">Сюжет</a>
-<a href="quotes.html">Цитаты</a>
-<a href="system.html">Система образов</a>
+    <a href="index.html">Главная</a>
+    <a href="characters.html">Персонажи</a>
+    <a href="plot.html">Сюжет</a>
+    <a href="quotes.html">Цитаты</a>
+    <a href="system.html">Система образов</a>
+    <a href="#" class="nav-highlight">📖 Роман</a>
+    <a href="#" class="nav-highlight">🎬 Фильм</a>
 </header>
 
 <h1>Цитаты из романа</h1>
 
-<!-- Аудио сверху -->
+<!-- Аудио блок -->
 <div class="audio-container">
-<audio controls>
-    <source src="literature.mp3" type="audio/mpeg">
-    Ваш браузер не поддерживает аудио.
-</audio>
+    <audio controls>
+        <source src="literature.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
 </div>
 
 <div class="container">
 
-<!-- Первая цитата -->
-<div class="quote-card">
-<!-- Используем изображение Достоевского, как на главной, но можно заменить на другую ссылку. 
-Оставлена та же, для единообразия. Если нужно другое фото, замените src -->
-<img src="https://i.ytimg.com/vi/aibmX_hAj2U/maxresdefault.jpg" alt="Раскольников">
-<p>
-«Человек, который убивает, чтобы доказать свою исключительность, никогда не найдёт покоя для души. 
-Внутренняя вина всегда сильнее внешних обстоятельств.»
-</p>
-<span>– Родион Раскольников</span>
-</div>
+    <!-- Первая цитата -->
+    <div class="quote-card">
+        <img src="https://i.ytimg.com/vi/aibmX_hAj2U/maxresdefault.jpg" alt="Раскольников">
+        <p>Человек, который убивает, чтобы доказать свою исключительность, никогда не найдёт покоя для души. Внутренняя вина всегда сильнее внешних обстоятельств.</p>
+        <span>– Родион Раскольников</span>
+    </div>
 
-<!-- Вторая цитата -->
-<div class="quote-card">
-<img src="https://i.ytimg.com/vi/2MCh8reuJj8/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYACzgWKAgwIABABGGUgZShlMA8=&amp;rs=AOn4CLCxTJflMCA8iuwOU5UA-steOhU9mw" alt="Соня">
-<p>
-«Спасение возможно лишь через страдание и покаяние. 
-Не сила, не теория, а вера и любовь к ближнему дают человеку свободу.»
-</p>
-<span>– Соня Мармеладова</span>
-</div>
+    <!-- Вторая цитата -->
+    <div class="quote-card">
+        <img src="https://i.ytimg.com/vi/2MCh8reuJj8/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYACzgWKAgwIABABGGUgZShlMA8=&amp;rs=AOn4CLCxTJflMCA8iuwOU5UA-steOhU9mw" alt="Соня">
+        <p>Спасение возможно лишь через страдание и покаяние. Не сила, не теория, а вера и любовь к ближнему дают человеку свободу.</p>
+        <span>– Соня Мармеладова</span>
+    </div>
 
-<!-- Третья цитата (без картинки, но в том же стиле) -->
-<div class="quote-card" style="padding-right: 40px;">
-<!-- Для цитаты без картинки просто не вставляем img -->
-<p style="max-width: 100%;">
-«Тот, кто живёт без морали, без внутреннего закона, обречён на пустоту и разочарование.»
-</p>
-<span>– Аркадий Свидригайлов</span>
-</div>
+    <!-- Третья цитата -->
+    <div class="quote-card">
+        <p>Тот, кто живёт без морали, без внутреннего закона, обречён на пустоту и разочарование.</p>
+        <span>– Аркадий Свидригайлов</span>
+    </div>
 
 </div>
 
 <footer>
-© Цитаты из романа «Преступление и наказание»
+    © Цитаты из романа «Преступление и наказание»
 </footer>
 
 </body>
